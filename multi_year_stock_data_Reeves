@@ -1,0 +1,46 @@
+Sub stock_data()
+    
+Dim ws As Worksheet
+
+For Each ws In ActiveWorkbook.Worksheets
+
+    Dim ticker As String
+    Dim vol As Double
+    vol = 0
+
+    Dim Summary_Table_Row As Integer
+
+    ws.Cells(1, 10).Value = "Ticker"
+    ws.Cells(1, 11).Value = "Total Stock Vol"
+ 
+    Summary_Table_Row = 2
+
+    For i = 2 To 999999
+
+      If ws.Cells(i - 1, 1) = ws.Cells(i, 1) And ws.Cells(i + 1, 1).Value <> ws.Cells(i, 1).Value Then
+          
+          ticker = ws.Cells(i, 1).Value
+
+          vol = vol + ws.Cells(i, 7).Value
+
+          ws.Range("J" & Summary_Table_Row).Value = ticker
+
+          ws.Range("K" & Summary_Table_Row).Value = vol
+
+          Summary_Table_Row = Summary_Table_Row + 1
+
+          vol = 0
+
+      Else
+
+          vol = vol + ws.Cells(i, 7).Value
+
+      End If
+
+    Next i
+        
+Next ws
+
+End Sub
+
+••••ˇˇˇˇ
